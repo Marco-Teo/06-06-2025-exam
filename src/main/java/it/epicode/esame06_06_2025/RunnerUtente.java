@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -148,10 +147,10 @@ public class RunnerUtente implements org.springframework.boot.CommandLineRunner 
             case "2":
                 mostraEdifici();
                 break;
-                case "3":
-                    System.out.println("Inserisci la città:");
-                    String citta = scanner.nextLine();
-                    mostraPostazionePerCitta(citta);
+            case "3":
+                System.out.println("Inserisci la città:");
+                String citta = scanner.nextLine();
+                mostraPostazionePerCitta(citta);
                 break;
             case "4":
                 prenotaPostazione();
@@ -205,9 +204,9 @@ public class RunnerUtente implements org.springframework.boot.CommandLineRunner 
 
             LocalDate oggi = LocalDate.now();
 
-            boolean exists = prenotazioniRepository.existsByUtenteAndPostazioneAndDataPrenotazione(currentUser, postazioneOpt.get(), oggi);
-            if (exists) {
-                System.out.println("❌ Hai già una prenotazione per questa postazione oggi.");
+            boolean hasBookingToday = prenotazioniRepository.existsByUtenteAndDataPrenotazione(currentUser, oggi);
+            if (hasBookingToday) {
+                System.out.println("❌ Hai già una prenotazione per oggi, non puoi prenotare più di una postazione nello stesso giorno.");
                 return;
             }
 

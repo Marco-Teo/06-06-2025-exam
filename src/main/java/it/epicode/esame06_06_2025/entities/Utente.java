@@ -3,12 +3,14 @@ package it.epicode.esame06_06_2025.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
+@ToString(exclude = "prenotazioni")
 public class Utente {
 
     @Id
